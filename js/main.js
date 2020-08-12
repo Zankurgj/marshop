@@ -100,46 +100,10 @@ $(document).ready(function () {
           slider_main.slick('slickSetOption', 'swipe', true, false);
         }
       });
-
-    $(window).on('load resize orientationchange', function () {
-      var mp_banner_slider = $('.js-mp-banner-slider');
-      mp_banner_slider.on('touchstart', function () {
-        slider_main.slick('slickSetOption', 'swipe', false, false);
-      });
-      if ($(window).width() > 1000) {
-        if (mp_banner_slider.hasClass('slick-initialized')) {
-          mp_banner_slider.off('touchstart', function () {
-            slider_main.slick('slickSetOption', 'swipe', true, false);
-          });
-          mp_banner_slider.slick('unslick');
-        }
-      } else {
-        if (!mp_banner_slider.hasClass('slick-initialized')) {
-          mp_banner_slider
-            .slick({
-              arrows: false,
-              infinite: false,
-              draggable: true,
-              dots: false,
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              centerMode: true,
-              autoplay: false,
-              swipeToSlide: true,
-              swipe: true,
-              variableWidth: true,
-              adaptiveHeight: false,
-            })
-            .on('beforeChange', function () {
-              slider_main.slick('slickSetOption', 'swipe', false, false);
-            })
-            .on('afterChange', function () {
-              slider_main.slick('slickSetOption', 'swipe', true, false);
-            });
-        }
-      }
-    });
-
+    // Инициализируем слайдер в баннере
+    mpBannerSliderCheck(slider_main);
+    // При ресайзе и смена ориентации устроства вкл/выкл слайдер
+    mpBannerSliderHandler(slider_main);
     $('.js-slider-extra').slick({
       arrows: true,
       infinite: true,
@@ -572,3 +536,51 @@ $(document).ready(function () {
     $('.js-dropdown').removeClass('is-selected');
   });
 });
+
+function mpBannerSliderHandler(mainSlider) {
+  $(window).on('resize orientationchange', function () {
+    mpBannerSliderCheck(mainSlider);
+  });
+}
+
+function mpBannerSliderCheck(mainSlider) {
+  if ($(window).width() > 1000) {
+    if ($('.js-mp-banner-slider').hasClass('slick-initialized')) {
+      $('.js-mp-banner-slider').off('touchstart', function () {
+        mainSlider.slick('slickSetOption', 'swipe', true, false);
+      });
+      $('.js-mp-banner-slider').slick('unslick');
+    }
+  } else {
+    if (!$('.js-mp-banner-slider').hasClass('slick-initialized')) {
+      mpBannerSliderInit(mainSlider);
+    }
+  }
+}
+
+function mpBannerSliderInit(mainSlider) {
+  $('.js-mp-banner-slider')
+    .slick({
+      arrows: false,
+      infinite: false,
+      draggable: true,
+      dots: false,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      centerMode: true,
+      autoplay: false,
+      swipeToSlide: true,
+      swipe: true,
+      variableWidth: true,
+      adaptiveHeight: false,
+    })
+    .on('beforeChange', function () {
+      mainSlider.slick('slickSetOption', 'swipe', false, false);
+    })
+    .on('afterChange', function () {
+      mainSlider.slick('slickSetOption', 'swipe', true, false);
+    })
+    .on('touchstart', function () {
+      mainSlider.slick('slickSetOption', 'swipe', false, false);
+    });
+}

@@ -1,0 +1,29 @@
+.mp-slider-wrapper {
+  position: relative;
+}
+@media screen and (max-width: 1000px) {
+  .mp-slider-wrapper {
+    margin: 0 -15px;
+  }
+  .mp-banner-slider {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+  .mp-banner-slider .slick-track {
+    display: flex;
+    align-items: center;
+  }
+  .mp-banner-slider .set__item {
+    transform: scale(0.8) translate3d(0, 0, 0);
+    transition: transform 0.3s ease-in-out;
+  }
+  .mp-banner-slider .set__item.slick-center {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+@media screen and (max-width: 768px) {
+  .set__item:nth-child(2) {
+    order: 0;
+  }
+}

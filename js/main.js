@@ -66,7 +66,6 @@ $(document).ready(function () {
   /* open/close catalog */
   $('.js-catalog-open').on('click', function () {
     if ($('.js-catalog').hasClass('is-open')) {
-      console.log('close');
       $('.js-catalog-link').removeClass('is-active');
       $('.js-catalog-level').removeClass('is-active');
       $('.js-catalog-link2').removeClass('is-active');

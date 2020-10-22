@@ -5,8 +5,6 @@
   padding: 80px 0 20px;
 }
 
-.catalog__menu {
-}
 @media screen and (max-width: 1000px) {
   .catalog .grid-col_75 {
     overflow-y: auto;
